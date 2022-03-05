@@ -13,8 +13,9 @@ public class PlayerPoints : MonoBehaviour
     [SerializeField] SpriteRenderer colorRenderer;
     [SerializeField] Color startColor;
     [SerializeField] Color endColor;
-    [SerializeField] float flashStep;
-void Start()
+    [SerializeField] float flashStep;  
+    
+    void Start()
     {
         // Initiate score
         pointsText.text = "Score: " + points;
@@ -22,13 +23,13 @@ void Start()
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "enemy") {
+        if (col.gameObject.tag == "Enemy") {
             points--;
             pointsText.text = "Score: " + points;
             // Start a new process to animate the flasing plane
             StartCoroutine(Flash());
         }
-        else if (col.gameObject.tag == "portal") {
+        else if (col.gameObject.tag == "Portal") {
             points++;
             pointsText.text = "Score: " + points;
             // Start a new process to animate the flasing plane
@@ -39,13 +40,13 @@ void Start()
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "enemy") {
-        Destroy(col.gameObject);
-        points -= 5;
+        if (col.gameObject.tag == "Enemy") {
+            points -= 5;
+            transform.position = new Vector3(0, 0, 0);
         }
-        else if (col.gameObject.tag == "portal") {
-            Destroy(col.gameObject);
+        else if (col.gameObject.tag == "Portal") {
             points += 5;
+            transform.position = new Vector3(0, 0, 0);
         }
         pointsText.text = "Score: " + points;
     }
